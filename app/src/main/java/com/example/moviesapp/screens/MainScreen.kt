@@ -1,6 +1,6 @@
 package com.example.moviesapp.screens
 
-import android.util.Log
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.example.moviesapp.MainViewModel
 import com.example.moviesapp.data.models.Movies
 import com.example.moviesapp.navigation.Screens
@@ -34,7 +33,7 @@ fun MainScreen(navController: NavController,viewModel: MainViewModel){
     Surface(Modifier.fillMaxSize()) {
 LazyColumn(modifier = Modifier
     .padding(20.dp)) {
-    items(allMovies.take(10)){item ->
+    items(allMovies.take(20)){item ->
         MovieItem(item = item,navController)
     }
 }
@@ -65,12 +64,13 @@ fun MovieItem(item: Movies,navController: NavController){
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold)
                 Row {
-                    Text(text = "Raiting :",
+                    Text(text = "Raiting: ",
                         fontWeight = FontWeight.Bold)
-                    Text(text = item.rating.toString())
+                    val raitingString = item.rating.toString()
+                    Text(text = raitingString.split("=")[1].split(")")[0])
                 }
                 Row {
-                    Text(text = "Genre :",
+                    Text(text = "Genre:",
                         fontWeight = FontWeight.Bold)
                     item.genres.take(2).forEach {Text(text = " $it ")}
                 }
